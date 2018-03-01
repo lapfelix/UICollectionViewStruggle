@@ -44,21 +44,18 @@
 
     self.currentAttributes = [NSMutableDictionary new];
     self.currentSupplementaryAttributes = [NSMutableDictionary new];
-    /*
-     CGFloat width = self.collectionView.bounds.size.width;
-     CGFloat y = 0;
-     NSInteger sectionCount = [self.collectionView numberOfSections];
-     for (int i = 0; i < sectionCount - 1; i++) {
-     NSInteger itemCount = [self.collectionView numberOfItemsInSection:i];
-     for (int j = 0; j < itemCount - 1; j++) {
-     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:j inSection:i];
-     CGSize size = [((id<UICollectionViewDelegateFlowLayout>)self.collectionView.delegate) collectionView:self.collectionView
-     layout:self
-     sizeForItemAtIndexPath:indexPath];
+}
 
-     }
-     }
-     */
+- (void)invalidateLayoutWithContext:(UICollectionViewLayoutInvalidationContext *)context {
+    [super invalidateLayoutWithContext:context];
+}
+
+- (BOOL)shouldInvalidateLayoutForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
+    return [super shouldInvalidateLayoutForPreferredLayoutAttributes:preferredAttributes withOriginalAttributes:originalAttributes];
+}
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return [super shouldInvalidateLayoutForBoundsChange:newBounds];
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,41 +87,12 @@
     else {
         return [super initialLayoutAttributesForAppearingSupplementaryElementOfKind:elementKind atIndexPath:itemIndexPath];
     }
-    /*
-     UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingSupplementaryElementOfKind:elementKind atIndexPath:itemIndexPath];
-     attributes.frame = self.previousAttributes[itemIndexPath].frame;
-     return attributes;
-     */
 }
 
 - (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingSupplementaryElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)elementIndexPath {
     return [self layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:elementIndexPath];
 }
 
-/*
- - (CGSize)collectionViewContentSize {
- return self.contentSize;
- }
- */
-/*
-+ (Class)layoutAttributesClass {
-    return SPCollectionViewLayoutAttributes.class;
-}
-*/
-/*
- - (void)prepareForAnimatedBoundsChange:(CGRect)oldBounds {
- self.initialContentOffset = oldBounds.origin;
- [super prepareForAnimatedBoundsChange:oldBounds];
- }
-
- - (void)finalizeAnimatedBoundsChange {
- [super finalizeAnimatedBoundsChange];
- }
-
- - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
- return self.initialContentOffset;
- }
- */
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind
                                                                      atIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *attributes;
@@ -137,7 +105,6 @@
         attributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:elementKind withIndexPath:indexPath];
         attributes.zIndex = -1;
         attributes.frame = [self layoutAttributesForItemAtIndexPath:indexPath].frame;
-        //attributes = [super layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
     }
 
     self.currentSupplementaryAttributes[indexPath] = attributes;
