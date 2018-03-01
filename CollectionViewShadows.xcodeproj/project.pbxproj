@@ -13,6 +13,7 @@
 		DC6A70772048582800F93BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC6A70762048582800F93BF6 /* Assets.xcassets */; };
 		DC6A707A2048582800F93BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC6A70782048582800F93BF6 /* LaunchScreen.storyboard */; };
 		DC6A707D2048582800F93BF6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6A707C2048582800F93BF6 /* main.m */; };
+		DC6A70852048591800F93BF6 /* SPCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6A70842048591800F93BF6 /* SPCollectionViewFlowLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		DC6A70792048582800F93BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC6A707B2048582800F93BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC6A707C2048582800F93BF6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DC6A70832048591800F93BF6 /* SPCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		DC6A70842048591800F93BF6 /* SPCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 				DC6A706E2048582500F93BF6 /* AppDelegate.m */,
 				DC6A70702048582500F93BF6 /* ViewController.h */,
 				DC6A70712048582500F93BF6 /* ViewController.m */,
+				DC6A70832048591800F93BF6 /* SPCollectionViewFlowLayout.h */,
+				DC6A70842048591800F93BF6 /* SPCollectionViewFlowLayout.m */,
 				DC6A70732048582500F93BF6 /* Main.storyboard */,
 				DC6A70762048582800F93BF6 /* Assets.xcassets */,
 				DC6A70782048582800F93BF6 /* LaunchScreen.storyboard */,
@@ -144,6 +149,7 @@
 				DC6A70722048582500F93BF6 /* ViewController.m in Sources */,
 				DC6A707D2048582800F93BF6 /* main.m in Sources */,
 				DC6A706F2048582500F93BF6 /* AppDelegate.m in Sources */,
+				DC6A70852048591800F93BF6 /* SPCollectionViewFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +292,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DVKB9Z8TQ2;
 				INFOPLIST_FILE = CollectionViewShadows/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +310,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DVKB9Z8TQ2;
 				INFOPLIST_FILE = CollectionViewShadows/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
