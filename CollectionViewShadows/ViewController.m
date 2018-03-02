@@ -97,14 +97,14 @@
     SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.label.numberOfLines = 1;
 
-    [self animateLayout];
+    [self animateLayoutForIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.label.numberOfLines = 0;
 
-    [self animateLayout];
+    [self animateLayoutForIndexPath:indexPath];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -113,7 +113,7 @@
                                                                       withReuseIdentifier:SPCollectionViewShadowElementKind
                                                                              forIndexPath:indexPath];
 
-        shadowView.container.alpha = (indexPath.row % 2 == 0) ? 1 : 0;
+        shadowView.container.alpha = 0;//(indexPath.row % 2 == 0) ? 1 : 0;
         shadowView.container.backgroundColor = self.colors[(indexPath.row - 2) % self.colors.count];
         return shadowView;
     }
@@ -123,8 +123,13 @@
                                                      forIndexPath:indexPath];
 }
 
-- (void)animateLayout {
-    [UIView animateWithDuration:0.4 animations:^{
+- (void)animateLayoutForIndexPath:(NSIndexPath *)indexPath {
+    [UIView animateWithDuration:4 animations:^{
+        //UICollectionViewFlowLayoutInvalidationContext *invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
+        //[invalidationContext invalidateItemsAtIndexPaths:@[indexPath]];
+        //[invalidationContext invalidateSupplementaryElementsOfKind:SPCollectionViewShadowElementKind atIndexPaths:@[indexPath]];
+        //[self.flowLayout invalidateLayoutWithContext:invalidationContext];
+
         [self.flowLayout invalidateLayout];
         [self.collectionView layoutIfNeeded];
     }];
@@ -158,7 +163,7 @@
         _flowLayout = [SPCollectionViewFlowLayout new];
         _flowLayout.minimumLineSpacing = 0;
         _flowLayout.minimumInteritemSpacing = 0;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(50, 0, 14, 0);
+        //_flowLayout.sectionInset = UIEdgeInsetsMake(50, 0, 14, 0);
         _flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     }
 
