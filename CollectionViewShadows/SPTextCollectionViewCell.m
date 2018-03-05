@@ -56,5 +56,26 @@
     return _label;
 }
 
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
+    CGRect frame = layoutAttributes.frame;
+    frame.size.height = [self systemLayoutSizeFittingSize:CGSizeMake(frame.size.width, UIViewNoIntrinsicMetric)
+                            withHorizontalFittingPriority:UILayoutPriorityRequired
+                                  verticalFittingPriority:UILayoutPriorityDefaultLow].height;
+    layoutAttributes.frame = frame;
+    return layoutAttributes;
+}
+
+/*
+
+ override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+ var frame = layoutAttributes.frame
+ //todo: the width, but correctly
+ frame.size = label.systemLayoutSizeFitting(CGSize(width: 375, height: UIViewNoIntrinsicMetric),
+ withHorizontalFittingPriority: .required,
+ verticalFittingPriority: .defaultLow)
+ layoutAttributes.frame = frame
+ return layoutAttributes
+ }
+ */
 
 @end

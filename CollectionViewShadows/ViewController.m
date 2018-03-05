@@ -113,7 +113,7 @@
                                                                       withReuseIdentifier:SPCollectionViewShadowElementKind
                                                                              forIndexPath:indexPath];
 
-        shadowView.container.alpha = 0;//(indexPath.row % 2 == 0) ? 1 : 0;
+        shadowView.container.alpha = (indexPath.row % 2 == 0) ? 1 : 0;
         shadowView.container.backgroundColor = self.colors[(indexPath.row - 2) % self.colors.count];
         return shadowView;
     }
@@ -124,7 +124,7 @@
 }
 
 - (void)animateLayoutForIndexPath:(NSIndexPath *)indexPath {
-    [UIView animateWithDuration:4 animations:^{
+    [UIView animateWithDuration:3.3 animations:^{
         //UICollectionViewFlowLayoutInvalidationContext *invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
         //[invalidationContext invalidateItemsAtIndexPaths:@[indexPath]];
         //[invalidationContext invalidateSupplementaryElementsOfKind:SPCollectionViewShadowElementKind atIndexPaths:@[indexPath]];
@@ -161,10 +161,10 @@
 - (SPCollectionViewFlowLayout *)flowLayout {
     if (!_flowLayout) {
         _flowLayout = [SPCollectionViewFlowLayout new];
-        _flowLayout.minimumLineSpacing = 0;
-        _flowLayout.minimumInteritemSpacing = 0;
+        //_flowLayout.minimumLineSpacing = 0;
+        //_flowLayout.minimumInteritemSpacing = 0;
         //_flowLayout.sectionInset = UIEdgeInsetsMake(50, 0, 14, 0);
-        _flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+        //_flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     }
 
     return _flowLayout;

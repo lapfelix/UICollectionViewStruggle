@@ -11,6 +11,6 @@
 static NSString *SPCollectionViewShadowElementKind = @"shadow";
 static NSString *SPCollectionViewNoShadowElementKind = @"noshadow";
 
-@interface SPCollectionViewFlowLayout : UICollectionViewFlowLayout
+@interface SPCollectionViewFlowLayout : UICollectionViewLayout
 
 @end
