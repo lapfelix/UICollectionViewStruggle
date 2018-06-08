@@ -21,7 +21,7 @@
 @end
 
 @implementation SPCollectionViewFlowLayout
-
+/*
 - (void)prepareLayout {
     NSLog(@"- - - - %@",NSStringFromSelector(_cmd));
 
@@ -197,4 +197,5 @@
 
     return _currentSupplementaryAttributes;
 }
+*/
 @end

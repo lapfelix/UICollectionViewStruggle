@@ -82,7 +82,7 @@
     cell.backgroundColor = self.colors[indexPath.row];
     cell.text = self.texts[indexPath.row];
     cell.width = collectionView.bounds.size.width;
-    cell.label.numberOfLines = [collectionView.indexPathsForSelectedItems containsObject:indexPath] ? 0 : 1;
+    cell.label.numberOfLines = [collectionView.indexPathsForSelectedItems containsObject:indexPath] ? 2 : 1;
     return cell;
 }
 
@@ -102,7 +102,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.label.numberOfLines = 0;
+    cell.label.numberOfLines = 2;
 
     [self animateLayoutForIndexPath:indexPath];
 }
@@ -130,8 +130,14 @@
         //[invalidationContext invalidateSupplementaryElementsOfKind:SPCollectionViewShadowElementKind atIndexPaths:@[indexPath]];
         //[self.flowLayout invalidateLayoutWithContext:invalidationContext];
 
-        [self.flowLayout invalidateLayout];
-        [self.collectionView layoutIfNeeded];
+        [self.collectionView performBatchUpdates:^{
+
+        } completion:^(BOOL finished) {
+
+        }];
+
+        //[self.flowLayout invalidateLayout];
+        //[self.collectionView layoutIfNeeded];
     }];
 }
 
