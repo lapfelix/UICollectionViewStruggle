@@ -34,6 +34,12 @@
     return self;
 }
 
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
+    UICollectionViewLayoutAttributes *atts = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+    NSLog(@"preffered layout attributes size: %@", NSStringFromCGSize(atts.size));
+    return atts;
+}
+
 - (void)setText:(NSString *)text {
     _text = text;
 

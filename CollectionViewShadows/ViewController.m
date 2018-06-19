@@ -7,14 +7,15 @@
 //
 
 #import "ViewController.h"
-#import "SPCollectionViewFlowLayout.h"
-#import "SPShadowView.h"
 #import "SPTextCollectionViewCell.h"
+
+static int ViewControllerDeselectedNumberOfLines = 1;
+static int ViewControllerSelectedNumberOfLines = 2;
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) SPCollectionViewFlowLayout *flowLayout;
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 
 @property (nonatomic, strong) NSArray<UIColor *> *colors;
 @property (nonatomic, strong) NSArray<NSString *> *texts;
@@ -65,12 +66,6 @@
     self.collectionView.alwaysBounceVertical = YES;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - UICollectionView stuff
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -82,62 +77,31 @@
     cell.backgroundColor = self.colors[indexPath.row];
     cell.text = self.texts[indexPath.row];
     cell.width = collectionView.bounds.size.width;
-    cell.label.numberOfLines = [collectionView.indexPathsForSelectedItems containsObject:indexPath] ? 2 : 1;
+    cell.label.numberOfLines = [collectionView.indexPathsForSelectedItems containsObject:indexPath] ? ViewControllerSelectedNumberOfLines : ViewControllerDeselectedNumberOfLines;
     return cell;
 }
 
-/*
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL selected = [self.collectionView.indexPathsForSelectedItems containsObject:indexPath];
-    return CGSizeMake(collectionView.bounds.size.width, selected ? 900 : 150);
-}
-*/
-
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.label.numberOfLines = 1;
+    SPTextCollectionViewCell *cell = (SPTextCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.label.numberOfLines = ViewControllerDeselectedNumberOfLines;
 
     [self animateLayoutForIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.label.numberOfLines = 2;
+    SPTextCollectionViewCell *cell = (SPTextCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.label.numberOfLines = ViewControllerSelectedNumberOfLines;
 
     [self animateLayoutForIndexPath:indexPath];
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:SPCollectionViewShadowElementKind]) {
-        SPShadowView *shadowView = [collectionView dequeueReusableSupplementaryViewOfKind:SPCollectionViewShadowElementKind
-                                                                      withReuseIdentifier:SPCollectionViewShadowElementKind
-                                                                             forIndexPath:indexPath];
-
-        shadowView.container.alpha = 0;//(indexPath.row % 2 == 0) ? 1 : 0;
-        shadowView.container.backgroundColor = self.colors[(indexPath.row - 2) % self.colors.count];
-        return shadowView;
-    }
-
-    return [collectionView dequeueReusableSupplementaryViewOfKind:SPCollectionViewNoShadowElementKind
-                                              withReuseIdentifier:SPCollectionViewNoShadowElementKind
-                                                     forIndexPath:indexPath];
-}
-
 - (void)animateLayoutForIndexPath:(NSIndexPath *)indexPath {
     [UIView animateWithDuration:4 animations:^{
-        //UICollectionViewFlowLayoutInvalidationContext *invalidationContext = [[UICollectionViewFlowLayoutInvalidationContext alloc] init];
-        //[invalidationContext invalidateItemsAtIndexPaths:@[indexPath]];
-        //[invalidationContext invalidateSupplementaryElementsOfKind:SPCollectionViewShadowElementKind atIndexPaths:@[indexPath]];
-        //[self.flowLayout invalidateLayoutWithContext:invalidationContext];
-
         [self.collectionView performBatchUpdates:^{
 
         } completion:^(BOOL finished) {
 
         }];
-
-        //[self.flowLayout invalidateLayout];
-        //[self.collectionView layoutIfNeeded];
     }];
 }
 
@@ -153,23 +117,16 @@
         _collectionView.allowsMultipleSelection = YES;
         _collectionView.allowsSelection = YES;
         _collectionView.backgroundColor = UIColor.whiteColor;
-        [_collectionView registerClass:SPShadowView.class
- forSupplementaryViewOfKind:SPCollectionViewShadowElementKind
-        withReuseIdentifier:SPCollectionViewShadowElementKind];
-        [_collectionView registerClass:UICollectionReusableView.class
- forSupplementaryViewOfKind:SPCollectionViewNoShadowElementKind
-        withReuseIdentifier:SPCollectionViewNoShadowElementKind];
     }
 
     return _collectionView;
 }
 
-- (SPCollectionViewFlowLayout *)flowLayout {
+- (UICollectionViewFlowLayout *)flowLayout {
     if (!_flowLayout) {
-        _flowLayout = [SPCollectionViewFlowLayout new];
+        _flowLayout = [UICollectionViewFlowLayout new];
         _flowLayout.minimumLineSpacing = 0;
         _flowLayout.minimumInteritemSpacing = 0;
-        //_flowLayout.sectionInset = UIEdgeInsetsMake(50, 0, 14, 0);
         _flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     }
 
