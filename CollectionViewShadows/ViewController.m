@@ -63,6 +63,12 @@
     self.collectionView.autoresizingMask = self.view.autoresizingMask;
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.collectionView.alwaysBounceVertical = YES;
+
+    [NSTimer scheduledTimerWithTimeInterval:0.1
+                                    repeats:YES
+                                      block:^(NSTimer * _Nonnull timer) {
+                                          [self.collectionView reloadData];
+                                      }];
 }
 
 
@@ -85,7 +91,7 @@
     cell.label.numberOfLines = [collectionView.indexPathsForSelectedItems containsObject:indexPath] ? 0 : 1;
     return cell;
 }
-
+/*
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     SPTextCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.label.numberOfLines = 1;
@@ -99,7 +105,7 @@
 
     [self animateLayoutForIndexPath:indexPath];
 }
-
+*/
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:SPCollectionViewShadowElementKind]) {
         SPShadowView *shadowView = [collectionView dequeueReusableSupplementaryViewOfKind:SPCollectionViewShadowElementKind

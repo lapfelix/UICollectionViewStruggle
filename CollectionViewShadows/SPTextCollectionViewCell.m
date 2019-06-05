@@ -65,6 +65,17 @@
     return layoutAttributes;
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+
+    UIColor *backgroundColor = self.backgroundColor;
+    self.backgroundColor = [UIColor blackColor];
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.backgroundColor = backgroundColor;
+                     }];
+}
+
 /*
 
  override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
